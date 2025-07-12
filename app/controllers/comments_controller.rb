@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
       redirect_to prototype_path(@comment.prototype)
     else
       @prototype = Prototype.find(params[:prototype_id])
+      @comments = @prototype.comments.includes(:user).order(created_at: :desc)
       render 'prototypes/show', status: :unprocessable_entity
     end
   end
